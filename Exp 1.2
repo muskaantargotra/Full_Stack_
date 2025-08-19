@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banking UI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f2f5f9;
+    }
+    .bank-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    .balance {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .balance h2 {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    .balance p {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #222;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .actions button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .deposit {
+      background: #4CAF50;
+      color: #fff;
+    }
+    .withdraw {
+      background: #E53935;
+      color: #fff;
+    }
+    .actions button:hover {
+      opacity: 0.9;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .form-group input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    @media (max-width: 500px) {
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bank-container">
+    <div class="balance">
+      <h2>Current Balance</h2>
+      <p id="balance">₹ 0.00</p>
+    </div>
+    <div class="actions">
+      <button class="deposit" onclick="deposit()">Deposit</button>
+      <button class="withdraw" onclick="withdraw()">Withdraw</button>
+    </div>
+    <div class="form-group">
+      <input type="number" id="amount" placeholder="Enter amount">
+      <input type="text" placeholder="Note (optional)">
+    </div>
+  </div>
+
+  <script>
+    let balance = 0;
+
+    function deposit() {
+      let amount = parseFloat(document.getElementById("amount").value);
+      if (!isNaN(amount) && amount > 0) {
+        balance += amount;
+        document.getElementById("balance").textContent = "₹ " + balance.toFixed(2);
+        document.getElementById("amount").value = "";
+      } else {
+        alert("Please enter a valid amount");
+      }
+    }
+
+    function withdraw() {
+      let amount = parseFloat(document.getElementById("amount").value);
+      if (!isNaN(amount) && amount > 0) {
+        if (amount <= balance) {
+          balance -= amount;
+          document.getElementById("balance").textContent = "₹ " + balance.toFixed(2);
+          document.getElementById("amount").value = "";
+        } else {
+          alert("Insufficient balance!");
+        }
+      } else {
+        alert("Please enter a valid amount");
+      }
+    }
+  </script>
+</body>
+</html>
